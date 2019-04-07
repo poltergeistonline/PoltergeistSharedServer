@@ -44,6 +44,12 @@ final class EntityCreateRequest : Packet
 
   AttackType attackType;
 
+  uint mapId;
+  uint x;
+  uint y;
+
+  uint spawnAmount;
+
   this(ubyte[] buffer)
   {
     super(buffer);
@@ -68,5 +74,11 @@ final class EntityCreateRequest : Packet
     rangeDefense = read!ulong;
 
     attackType = (read!ushort).qcast!AttackType;
+
+    mapId = read!uint;
+    x = read!uint;
+    y = read!uint;
+
+    spawnAmount = read!uint;
   }
 }

@@ -12,7 +12,9 @@ enum SpawnType : ushort
   monster,
   boss,
   pet,
-  mount
+  mount,
+  item,
+  money
 }
 
 /// 4001
@@ -32,6 +34,9 @@ final class SpawnResponse : Packet
   uint nameColor;
   uint titleColor;
 
+  uint itemId;
+  ulong amount;
+
   ulong avatar;
 
   uint model;
@@ -46,6 +51,7 @@ final class SpawnResponse : Packet
   uint leftHand;
   uint rightHand;
   uint back;
+  uint garment;
 
   ulong statusEffect1;
   ulong statusEffect2;
@@ -58,7 +64,7 @@ final class SpawnResponse : Packet
 
   this()
   {
-    super(132, 4001);
+    super(136, 4001);
   }
 
   override ubyte[] finalize()
@@ -77,29 +83,48 @@ final class SpawnResponse : Packet
     write!uint(nameColor);
     write!uint(titleColor);
 
-    write!ulong(avatar);
+    final switch (type)
+    {
+      case SpawnType.item:
+      {
+        write!uint(itemId);
+        break;
+      }
 
-    write!uint(model);
-    write!uint(hair);
-    write!uint(eyes);
-    write!uint(skin);
+      case SpawnType.money:
+      {
+        write!ulong(amount);
+        break;
+      }
 
-    write!uint(headGear);
-    write!uint(necklace);
-    write!uint(armor);
-    write!uint(boots);
-    write!uint(leftHand);
-    write!uint(rightHand);
-    write!uint(back);
+      default:
+      {
+        write!ulong(avatar);
 
-    write!ulong(statusEffect1);
-    write!ulong(statusEffect2);
+        write!uint(model);
+        write!uint(hair);
+        write!uint(eyes);
+        write!uint(skin);
 
-    write!ulong!(attributeEffect1);
-    write!ulong(attributeEffect2);
+        write!uint(headGear);
+        write!uint(necklace);
+        write!uint(armor);
+        write!uint(boots);
+        write!uint(leftHand);
+        write!uint(rightHand);
+        write!uint(back);
+        write!uint(garment);
 
-    write!ulong(hp);
-    write!ulong(maxHp);
+        write!ulong(statusEffect1);
+        write!ulong(statusEffect2);
+
+        write!ulong!(attributeEffect1);
+        write!ulong(attributeEffect2);
+
+        write!ulong(hp);
+        write!ulong(maxHp);
+      }
+    }
 
     return super.finalize;
   }

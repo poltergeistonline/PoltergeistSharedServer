@@ -94,8 +94,8 @@ final class NpcCreateRequest : Packet
   uint back;
 
   uint mapId;
-  ushort x;
-  ushort y;
+  uint x;
+  uint y;
 
   this(ubyte[] buffer)
   {

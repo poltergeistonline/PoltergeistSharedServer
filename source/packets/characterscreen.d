@@ -38,6 +38,7 @@ final class CharacterScreenResponse : Packet
     uint leftHand;
     uint rightHand;
     uint back;
+    uint garment;
 
     ulong statusEffect1;
     ulong statusEffect2;
@@ -61,7 +62,7 @@ final class CharacterScreenResponse : Packet
       {
         auto size = sumStringSizeSeparate([character.name, character.title, character.job], 4, 2);
 
-        size += 70;
+        size += 74;
 
         expand(size);
 
@@ -84,6 +85,7 @@ final class CharacterScreenResponse : Packet
         write!uint(character.leftHand);
         write!uint(character.rightHand);
         write!uint(character.back);
+        write!uint(character.garment);
 
         write!ulong(character.statusEffect1);
         write!ulong(character.statusEffect2);
@@ -120,6 +122,7 @@ final class CharacterScreenCreationRequest : Packet
   uint hair;
   uint eyes;
   uint skin;
+  ushort job;
 
   this(ubyte[] buffer)
   {
@@ -131,6 +134,7 @@ final class CharacterScreenCreationRequest : Packet
     hair = read!uint;
     eyes = read!uint;
     skin = read!uint;
+    job = read!uint;
   }
 }
 

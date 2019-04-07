@@ -14,7 +14,7 @@ enum InteractionType
   blacklist
 }
 
-/// 8001
+/// 9001
 final class InteractionRequest : Packet
 {
   public:
@@ -33,7 +33,7 @@ final class InteractionRequest : Packet
   }
 }
 
-/// 8002
+/// 9002
 final class InteractionResponse : Packet
 {
   public:
@@ -44,7 +44,7 @@ final class InteractionResponse : Packet
 
   this()
   {
-    super(14, 6002);
+    super(14, 9002);
   }
 
   override ubyte[] finalize()

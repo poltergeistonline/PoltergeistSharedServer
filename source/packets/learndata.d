@@ -2,7 +2,7 @@ module pshared.packets.learndata;
 
 import pnet.packet;
 
-enum DataSkillName
+enum DataSkillName : dstring
 {
   mining = "Mining",
   smithing = "Smithing",
@@ -56,5 +56,20 @@ final class LearnDataResponse : Packet
     write!ulong(requiredExperience);
 
     return super.finalize;
+  }
+}
+
+/// 14002
+final class LearnDataTriggerRequest : Packet
+{
+  public:
+  final:
+  DataSkillName skillName;
+
+  this(ubyte[] buffer)
+  {
+    super(buffer);
+
+    skillName = (read!dstring).qcast!DataSkillName;
   }
 }
